@@ -1,4 +1,6 @@
-# Double-Spent
+# Double Spent
+
+![Double Spent Logo](https://www.unspenttx.com/logo.png)
 
 A less than zero-sum game of musical chairs naively chasing theoretical legraunge points of equilibriums. Using a series of Aiken smart contracts for managing treasury, marketplace, oracle, nft minting and burning operations on the Cardano blockchain, this protocol is automatic, deterministic, transparent, and censorship resistant.
 
