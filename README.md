@@ -2,7 +2,7 @@
 
 <img src="https://www.unspenttx.com/logo.png" alt="Double Spent Logo" width="200"/>
 
-A less than zero-sum game of musical chairs naively chasing theoretical Lagrange points of equilibrium. Using a series of Aiken smart contracts for managing treasury, marketplace, oracle, nft minting and burning operations on the Cardano blockchain, this protocol is automatic, deterministic, transparent, and censorship resistant.
+A less than zero-sum game of musical chairs naively chasing theoretical Lagrange points of equilibrium. Using a series of Aiken smart contracts for managing treasury, marketplace, oracle, NFT minting and burning operations on the Cardano blockchain, this protocol is automatic, deterministic, transparent, and censorship resistant.
 
 Created by [@unspent-tx](https://github.com/unspent-tx)
 
