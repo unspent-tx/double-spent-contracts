@@ -1,0 +1,28 @@
+name = "unspent/double-spent"
+version = "1.0.0"
+compiler = "v1.1.13"
+plutus = "v3"
+license = "AGPL-3.0"
+description = "Aiken contracts for project 'unspent/double-spent'"
+
+[repository]
+user = "unspent"
+project = "double-spent"
+platform = "github"
+
+[[dependencies]]
+name = "aiken-lang/stdlib"
+version = "v2.2.0"
+source = "github"
+
+[[dependencies]]
+name = "sidan-lab/vodka"
+version = "0.1.11"
+source = "github"
+
+[[dependencies]]
+name = "aiken-lang/fuzz"
+version = "2.1.0"
+source = "github"
+
+[config]
