@@ -23,24 +23,24 @@ aiken-workspace/
 
 ## Overview
 
-| Name                       | Documentation                     |
-| -------------------------- | --------------------------------- |
-| Contracts Description      | [Read](contracts-description.md)  |
-| Parameter Dependency Graph | [Read](param-dependency-graph.md) |
-| User Actions               | [Read](user-actions.md)           |
-| Setup Procedure            | [Read](setup-procedure.md)        |
+| Name                       | Documentation                                                   |
+| -------------------------- | --------------------------------------------------------------- |
+| Contracts Description      | [Read](aiken-workspace/documentation/contracts-description.md)  |
+| Parameter Dependency Graph | [Read](aiken-workspace/documentation/param-dependency-graph.md) |
+| User Actions               | [Read](aiken-workspace/documentation/user-actions.md)           |
+| Setup Procedure            | [Read](aiken-workspace/documentation/setup-procedure.md)        |
 
 ## Documentation
 
-| Contract     | Documentation                                    |
-| ------------ | ------------------------------------------------ |
-| Oracle NFT   | [Specification](specification/1_oracle_nft.md)   |
-| Oracle       | [Specification](specification/2_oracle.md)       |
-| Plutus NFT   | [Specification](specification/3_plutus_nft.md)   |
-| Pot Spend    | [Specification](specification/4_pot_spend.md)    |
-| Pot Withdraw | [Specification](specification/5_pot_withdraw.md) |
-| Treasury     | [Specification](specification/6_treasury.md)     |
-| Marketplace  | [Specification](specification/7_marketplace.md)  |
+| Contract     | Documentation                                                                  |
+| ------------ | ------------------------------------------------------------------------------ |
+| Oracle NFT   | [Specification](aiken-workspace/documentation/specification/1_oracle_nft.md)   |
+| Oracle       | [Specification](aiken-workspace/documentation/specification/2_oracle.md)       |
+| Plutus NFT   | [Specification](aiken-workspace/documentation/specification/3_plutus_nft.md)   |
+| Pot Spend    | [Specification](aiken-workspace/documentation/specification/4_pot_spend.md)    |
+| Pot Withdraw | [Specification](aiken-workspace/documentation/specification/5_pot_withdraw.md) |
+| Treasury     | [Specification](aiken-workspace/documentation/specification/6_treasury.md)     |
+| Marketplace  | [Specification](aiken-workspace/documentation/specification/7_marketplace.md)  |
 
 ## Dependencies
 
@@ -52,4 +52,4 @@ aiken-workspace/
 
 ## License
 
-This project is licensed under the AGPL-3.0 License - see the [LICENSE.txt](LICENSE.txt) file for details.
+This project is licensed under the AGPL-3.0 License - see the [LICENSE.txt](aiken-workspace/LICENSE.txt) file for details.
