@@ -4,16 +4,16 @@
 
 ## Datum
 
-- `count`: **updates** The number of NFTs minted in a collection.
-- `treasury_address`: _static_ The script address to collect fees and payout NFT burning.
-- `pot_address`: _static_ The script address to collect fees and payout last minter.
-- `fee_address`: _static_ The wallet address to pay developer.
-- `winner`: **updates** The public key hash of the last minter.
-- `lock_price`: _static_ The lovelace going to the treasury during a mint.
-- `pot_price`: _static_ The lovelace going to the pot during a mint.
-- `fee_price`: _static_ The lovelace going to the developer during a mint.
-- `start_slot`: _static_ The slot of oracle deployment plus offset used to start timer.
-- `slot_increase`: _static_ The amount of slots to increase timer for each mint.
+- **updates** `count`: The number of NFTs minted in a collection.
+- _static_ `treasury_address`: The script address to collect fees and payout NFT burning.
+- _static_ `pot_address`: The script address to collect fees and payout last minter.
+- _static_ `fee_address`: The wallet address to pay developer.
+- **updates** `winner`: The public key hash of the last minter.
+- _static_ `lock_price`: The lovelace going to the treasury during a mint.
+- _static_ `pot_price`: The lovelace going to the pot during a mint.
+- _static_ `fee_price`: The lovelace going to the developer during a mint.
+- _static_ `start_slot`: The slot of oracle deployment plus offset used to start timer.
+- _static_ `slot_increase`: The amount of slots to increase timer for each mint.
 
 ## User Action
 

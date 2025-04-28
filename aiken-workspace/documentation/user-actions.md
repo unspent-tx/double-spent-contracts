@@ -49,3 +49,19 @@
    - Validation: 1.1
      - 1.1 Mint - Redeemer `RMint`
        - Transaction hash as parameterized is included in input
+
+## Marketplace
+
+1. Buy
+
+   - Validation: 7.1
+     - 7.1 Buy - Redeemer `Buy`
+       - There is 1 input from its own address
+       - There datum `price` fee is paid to the datum `seller`
+       - The dev fee is paid to the `owner`
+
+2. Close
+
+   - Validation: 7.2
+     - 7.2 Close - Redeemer `Close`
+       - Signed by the datum `seller`

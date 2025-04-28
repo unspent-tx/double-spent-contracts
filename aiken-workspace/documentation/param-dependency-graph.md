@@ -1,4 +1,6 @@
-# Param Dependency Graph - Example
+# Param Dependency Graph
+
+## DApp
 
 1. First layer
 
@@ -14,3 +16,10 @@
 
    - `plutus_nft` in `treasury`
    - `pot_withdraw` in `pot_spend`
+
+## Marketplace
+
+1. First layer
+
+   - `owner` in `marketplace`
+   - `fee_percentage_basis_point` in `marketplace`

@@ -22,4 +22,8 @@
 
 6. Treasury - [specification](./specification/6_treasury.md)
 
-   - The validator locking funds and paying out NFT burn
+   - The validator locking funds and paying out NFT burn.
+
+7. Marketplace - [specification](./specification/7_marketplace.md)
+
+   - The validator to trade P2P NFTs.
