@@ -2,15 +2,24 @@
 
 ## Parameter
 
-- `oracle_nft`: The policy id of `OracleNFT`
-- `nft_policy`: The policy id of `PlutusNFT`
+| Field        | Type     | Description                |
+| ------------ | -------- | -------------------------- |
+| `oracle_nft` | PolicyId | The policy id of OracleNFT |
+| `nft_policy` | PolicyId | The policy id of DSNFT     |
 
-## User Action
+## Redeemer
 
-1. Spend - Redeemer ` Withdraw``{ asset_name } `
+| Action                 | Description                  |
+| ---------------------- | ---------------------------- |
+| `Withdraw{asset_name}` | Withdraw funds for burnt NFT |
 
-   - There is 1 reference input with `oracle_nft` with datum
-   - There are 2 inputs from own_address.
-   - The `asset_name` converts to an int
-   - The `asset_name` is being burnt from `nft_policy`
-   - The `asset_name` is less than `count` divided by 2.
+## User Actions
+
+| Action | Description                                                              |
+| ------ | ------------------------------------------------------------------------ |
+| Spend  | When redeemer is `Withdraw{asset_name}`                                  |
+|        | When 1 reference input with `oracle_nft` with `OracleDatum` is present   |
+|        | When `asset_name` converts to an integer from utf8                       |
+|        | When `asset_name` is only burnt token from `nft_policy`                  |
+|        | When `asset_name` from utf8 is less than `count` divided by `divisor`    |
+|        | When `divisor` is equal to length of inputs being spent from own address |

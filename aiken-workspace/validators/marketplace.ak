@@ -1,14 +1,13 @@
+// Trade NFTs peer to peer
+
 // Originally forked from the marketplace contract written by @https://github.com/HinsonSIDAN Apache 2.0 license
 // https://github.com/MeshJS/mesh/blob/main/packages/mesh-contract/src/marketplace/aiken-workspace-v2/validators/marketplace.ak
 
 use cardano/address.{Address}
-use cardano/assets.{from_lovelace, lovelace_of, add}
-use cardano/transaction.{OutputReference, Transaction, find_input, InlineDatum, Input,}
-use cocktail.{key_signed,inputs_at,get_all_value_to, value_geq, address_pub_key}
-use mocktail.{
-  add_input, complete, mocktail_tx, required_signer_hash, tx_in,
-  tx_in_inline_datum, tx_out, mock_pub_key_address, mock_script_address,mock_policy_id, mock_pub_key_hash, mock_tx_hash, mock_utxo_ref, mock_script_output
-}
+use cardano/assets.{add, from_lovelace, lovelace_of}
+use cardano/transaction.{find_input, InlineDatum, Input, OutputReference, Transaction}
+use cocktail.{address_pub_key, get_all_value_to, inputs_at, key_signed, value_geq}
+use mocktail.{add_input, complete, mock_policy_id, mock_pub_key_address, mock_pub_key_hash, mock_script_address, mock_script_output, mock_tx_hash, mock_utxo_ref, mocktail_tx, required_signer_hash, tx_in, tx_in_inline_datum, tx_out}
 
 pub type MarketplaceDatum {
   MarketplaceDatum {
@@ -34,9 +33,9 @@ validator marketplace(owner: Address, fee_percentage_basis_point: Int) {
     expect Some(datum) = datum_opt
     when redeemer is {
       Buy -> {
-        expect Some(own_input) = find_input(tx.inputs, input)
+        expect Some(own_input) = find_input(tx.inputs, input)  
         let own_address = own_input.output.address
-        let is_only_one_input_from_script =
+        let is_only_one_input_from_own_address =
           when inputs_at(tx.inputs, own_address) is {
             [_] -> True
             _ -> False
@@ -44,14 +43,14 @@ validator marketplace(owner: Address, fee_percentage_basis_point: Int) {
         let is_proceed_paid =
           get_all_value_to(tx.outputs, datum.seller)
             |> value_geq(
-                from_lovelace(datum.price + lovelace_of(own_input.output.value)),
+                from_lovelace(datum.price + lovelace_of(own_input.output.value)), 
               )
         let is_fee_paid =
           get_all_value_to(tx.outputs, owner)
             |> value_geq(
                 from_lovelace(datum.price * fee_percentage_basis_point / 10000),
               )
-        is_only_one_input_from_script && is_fee_paid && is_proceed_paid
+        is_only_one_input_from_own_address && is_fee_paid && is_proceed_paid
       }
       Close -> {
         expect Some(pub_key) = address_pub_key(datum.seller)
@@ -94,7 +93,7 @@ fn get_close_test_tx(test_case: CloseTestCase) -> Transaction {
     |> complete()
 }
 
-test success_close() {
+test success_spend_marketplace_close() {
   let output_reference = mock_utxo_ref(0, 1)
   let redeemer = Close
   let test_case = CloseTestCase { is_seller_signed: True }
@@ -110,7 +109,7 @@ test success_close() {
   )
 }
 
-test fail_close_without_signature() {
+test fail_spend_marketplace_close_without_signature() {
   let output_reference = mock_utxo_ref(0, 1)
   let redeemer = Close
   let test_case = CloseTestCase { is_seller_signed: False }
@@ -186,7 +185,7 @@ fn get_buy_test_tx(test_case: BuyTestCase) -> Transaction {
       )
 }
 
-test success_buy() {
+test success_spend_marketplace_buy() {
   let output_reference = mock_utxo_ref(0, 1)
   let redeemer = Buy
   let test_case =
@@ -207,7 +206,7 @@ test success_buy() {
   )
 }
 
-test fail_buy_with_multiple_script_inputs() {
+test fail_spend_marketplace_buy_with_multiple_script_inputs() {
   let output_reference = mock_utxo_ref(0, 1)
   let redeemer = Buy
   let test_case =
@@ -228,7 +227,7 @@ test fail_buy_with_multiple_script_inputs() {
   )
 }
 
-test fail_buy_without_fee_paid() {
+test fail_spend_marketplace_buy_without_fee_paid() {
   let output_reference = mock_utxo_ref(0, 1)
   let redeemer = Buy
   let test_case =
@@ -249,7 +248,7 @@ test fail_buy_without_fee_paid() {
   )
 }
 
-test fail_buy_without_proceed_paid() {
+test fail_spend_marketplace_buy_without_proceed_paid() {
   let output_reference = mock_utxo_ref(0, 1)
   let redeemer = Buy
   let test_case =

@@ -1,25 +1,16 @@
 # Param Dependency Graph
 
-## DApp
+## DApp Parameters
 
-1. First layer
+| First Layer               | Second Layer                  | Third Layer                  |
+| ------------------------- | ----------------------------- | ---------------------------- |
+| `utxo_ref` → `oracle_nft` | `oracle_nft` → `ds_nft`       | `ds_nft` → `treasury`        |
+|                           | `oracle_nft` → `pot_withdraw` | `pot_withdraw` → `pot_spend` |
+|                           | `oracle_nft` → `treasury`     |                              |
 
-   - `utxo_ref` in `oracle_nft`
+## Marketplace Parameters
 
-2. Second layer
-
-   - `oracle_nft` in `plutus_nft`
-   - `oracle_nft` in `pot_withdraw`
-   - `oracle_nft` in `treasury`
-
-3. Third layer
-
-   - `plutus_nft` in `treasury`
-   - `pot_withdraw` in `pot_spend`
-
-## Marketplace
-
-1. First layer
-
-   - `owner` in `marketplace`
-   - `fee_percentage_basis_point` in `marketplace`
+| First Layer                                  |
+| -------------------------------------------- |
+| `owner` → `marketplace`                      |
+| `fee_percentage_basis_point` → `marketplace` |

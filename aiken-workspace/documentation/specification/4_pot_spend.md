@@ -2,10 +2,19 @@
 
 ## Parameter
 
-- `withdraw_script_hash`: The script hash of `PotWithdraw`
+| Field                  | Type       | Description                    |
+| ---------------------- | ---------- | ------------------------------ |
+| `withdraw_script_hash` | ScriptHash | The script hash of PotWithdraw |
 
-## User Action
+## Redeemer
 
-1. Spend - Redeemer `Withdraw`
+| Action     | Description        |
+| ---------- | ------------------ |
+| `Withdraw` | Withdraw pot funds |
 
-   - There is a withdraw of zero from `withdraw_script_hash`
+## User Actions
+
+| Action | Description                                       |
+| ------ | ------------------------------------------------- |
+| Spend  | When redeemer is `Withdraw`                       |
+|        | When withdraw of zero from `withdraw_script_hash` |

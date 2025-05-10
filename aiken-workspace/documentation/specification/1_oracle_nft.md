@@ -2,10 +2,19 @@
 
 ## Parameter
 
-- `utxo_ref`: UTxO to be spent at minting
+| Field      | Type            | Description                 |
+| ---------- | --------------- | --------------------------- |
+| `utxo_ref` | OutputReference | UTxO to be spent at minting |
+
+## Redeemer
+
+| Action  |
+| ------- |
+| `RMint` |
 
 ## User Action
 
-1. Mint - Redeemer `RMint`
-
-   - Transaction hash as parameterized is included in input
+| Action | Description                                            |
+| ------ | ------------------------------------------------------ |
+| Mint   | When redeemer is `RMint`                               |
+|        | When parameter `utxo_ref` hash is an input being spent |

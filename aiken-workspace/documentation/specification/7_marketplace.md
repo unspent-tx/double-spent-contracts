@@ -2,19 +2,36 @@
 
 ## Parameter
 
-- `owner`: The Dev Address to collect fees
-- `fee_percentage_basis_point`: The basis point fee to charge for each sale
+| Field                        | Type    | Description                                     |
+| ---------------------------- | ------- | ----------------------------------------------- |
+| `owner`                      | Address | The address that receives marketplace fees      |
+| `fee_percentage_basis_point` | Int     | Fee percentage in basis points (e.g., 100 = 1%) |
 
-## User Action
+## Datum
 
-1. Spend - Redeemer `Buy`
+| Field       | Type      | Description                          | Changes |
+| ----------- | --------- | ------------------------------------ | ------- |
+| `seller`    | Address   | The address of the NFT seller        | No      |
+| `price`     | Int       | The price in lovelace for the NFT    | No      |
+| `policy`    | ByteArray | The policy ID of the NFT being sold  | No      |
+| `tokenName` | ByteArray | The token name of the NFT being sold | No      |
 
-   - There is 1 input from its own address
-   - There datum `price` fee is paid to the datum `seller`
-   - The dev fee is paid to the `owner`
+## Redeemer
 
-## Close
+| Action  | Description                     |
+| ------- | ------------------------------- |
+| `Buy`   | Purchase the listed NFT         |
+| `Close` | Remove the NFT from marketplace |
 
-1. Spend - Redeemer `Close`
+## User Actions
 
-   - Signed by the datum `seller`
+| Action | Description                                                                 |
+| ------ | --------------------------------------------------------------------------- |
+| Spend  | When there is some datum                                                    |
+|        | When redeemer is `Buy`                                                      |
+|        | When 1 input from the marketplace script is present                         |
+|        | When `seller` receives `price` + input value                                |
+|        | When `owner` receives fee (`price` \* `fee_percentage_basis_point` / 10000) |
+| Spend  | When there is some datum                                                    |
+|        | When redeemer is `Close`                                                    |
+|        | When transaction is signed by the `seller`                                  |

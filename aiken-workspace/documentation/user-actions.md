@@ -1,67 +1,76 @@
-# User Actions Documentation
+# User Interactions
 
-## Normal Users
+### Normal users can
 
-1. Mint NFT from the collection of `plutus-nft`
+### 1. Mint NFT
 
-   - Validation: 2.1, 3.1
-     - 2.1 Mint Plutus NFT - Redeemer `MintPlutusNFT`
-       - Only 1 input from and output to own address
-       - The output datum is updated `count` of +1, and the output value = input value
-         - The winner is also updated but without validation.
-       - The current address output value doesn't contain other irrelevant tokens
-       - Fee is paid to fee collector address
-       - Fee is paid to treasury script address
-       - Fee is paid to pot script address
-     - 3.1 Mint - Redeemer `RMint`
-       - There is 1 input with `oracle_nft`
-       - There is 1 token minted from current transaction, with correct token name `${count}`
+| Action | [Oracle](aiken-workspace/documentation/specification/2_oracle.md) | Action | [DS NFT](aiken-workspace/documentation/specification/3_ds_nft.md) |
+| ------ | ----------------------------------------------------------------- | ------ | ----------------------------------------------------------------- |
+| Spend  | When own input with `oracle_nft` with `OracleDatum` is present    | Mint   | When redeemer is `RMint`                                          |
+|        | When redeemer is `MintDsNFT{winner}`                              |        | When 1 input with `oracle_nft` with `OracleDatum` is present      |
+|        | When 1 input with `oracle_nft` is spent                           |        | When 1 token is minted with token name `${count}`                 |
+|        | When 1 output with `oracle_nft` is sent to own address            |        |                                                                   |
+|        | When output `oracle_nft` has only value of 1 nft and lovelace     |        |                                                                   |
+|        | When output datum `count` is updated with `count + 1`             |        |                                                                   |
+|        | When output datum `winner` is updated with redeemer's `winner`    |        |                                                                   |
+|        | When all other output datum remains the same                      |        |                                                                   |
+|        | When `treasury_price` is paid to `treasury_address` address       |        |                                                                   |
+|        | When `pot_price` is paid to `pot_address` address                 |        |                                                                   |
+|        | When `fee_price` is paid to `fee_address` address                 |        |                                                                   |
 
-2. Burn NFT from collection of `plutus_nft`. Spend from the `treasury`
+---
 
-   - Validation: 6.1, 3.2
-     - 6.1 Spend - Redeemer ` Withdraw``{ asset_name }`
-       - There is 1 reference input with `oracle_nft` with datum
-       - There are 2 inputs from own_address
-       - The `asset_name` converts to an int
-       - The `asset_name` is being burnt from `nft_policy`
-       - The `asset_name` is less than `count` divided by 2
-     - 3.2 Burn - Redeemer `RBurn`
-       - The current policy id only has negative minting value in transaction body
+### 2. Burn NFT
 
-3. Spend from `pot_spend`. Withdraw from `pot_withdraw`
+| Action | [Treasury](aiken-workspace/documentation/specification/6_treasury.md)    | Action | [DS NFT ](aiken-workspace/documentation/specification/3_ds_nft.md) |
+| ------ | ------------------------------------------------------------------------ | ------ | ------------------------------------------------------------------ |
+| Spend  | When redeemer is `Withdraw{asset_name}`                                  | Burn   | When redeemer is `RBurn`                                           |
+|        | When 1 reference input with `oracle_nft` with `OracleDatum` is present   |        | When policy id has negative minting value in transaction body      |
+|        | When `asset_name` converts to an integer from utf8                       |
+|        | When `asset_name` is only burnt token from `nft_policy`                  |
+|        | When `asset_name` from utf8 is less than `count` divided by `divisor`    |
+|        | When `divisor` is equal to length of inputs being spent from own address |
 
-   - Validation: 4.1, 5.1
-     - 4.1 Spend - Redeemer `Withdraw`
-       - There is a withdraw of zero from `withdraw_script_hash`
-     - 5.1 Withdraw - Redeemer `Withdraw`
-       - There is exactly 1 input from the `oracle_nft` policy.
-       - The oraclue datum is valid.
-         - `OracleDatum` `count`, `start_slot`, `slot_increase`, `winner`
-       - The transaction is signed by the `winner`.
-       - The transaction is valid after calculated `end_of_game` slot.
-         - `end_of_game` = `start_slot + count * slot_increase`
+---
 
-## Admin
+### 3. Withdraw from Pot
 
-1. Mint `OracleNFT`
+| Action   | [Pot Withdraw ](aiken-workspace/documentation/specification/6_pot_withdraw.md) | Action | [Pot Spend](aiken-workspace/documentation/specification/4_pot_spend.md) |
+| -------- | ------------------------------------------------------------------------------ | ------ | ----------------------------------------------------------------------- |
+| Withdraw | When redeemer is `Withdraw`                                                    | Spend  | When redeemer is `Withdraw`                                             |
+|          | When 1 input with `oracle_nft` with `OracleDatum` is present                   |        | When withdraw of zero from `withdraw_script_hash`                       |
+|          | When `winner` is signing the transaction                                       |
+|          | When transaction is valid after `slot_start + count * slot_increase`           |
 
-   - Validation: 1.1
-     - 1.1 Mint - Redeemer `RMint`
-       - Transaction hash as parameterized is included in input
+---
 
-## Marketplace
+### 4. Buy on Marketplace
 
-1. Buy
+| Action | [Marketplace](aiken-workspace/documentation/specification/7_marketplace.md) |
+| ------ | --------------------------------------------------------------------------- |
+| Spend  | When there is some datum                                                    |
+|        | When redeemer is `Buy`                                                      |
+|        | When 1 input from the marketplace script is present                         |
+|        | When `seller` receives price + input value                                  |
+|        | When `owner` receives fee (`price` \* `fee_percentage_basis_point` / 10000) |
 
-   - Validation: 7.1
-     - 7.1 Buy - Redeemer `Buy`
-       - There is 1 input from its own address
-       - There datum `price` fee is paid to the datum `seller`
-       - The dev fee is paid to the `owner`
+### 5. Cancel Listing on Marketplace
 
-2. Close
+| Action | [Marketplace](aiken-workspace/documentation/specification/7_marketplace.md) |
+| ------ | --------------------------------------------------------------------------- |
+| Spend  | When there is some datum                                                    |
+|        | When redeemer is `Close`                                                    |
+|        | When transaction is signed by the `seller`                                  |
 
-   - Validation: 7.2
-     - 7.2 Close - Redeemer `Close`
-       - Signed by the datum `seller`
+---
+
+### Admin Users Only Setup
+
+### 1. Mint Oracle NFT
+
+| Action | Description                                            |
+| ------ | ------------------------------------------------------ |
+| Mint   | When redeemer is `RMint`                               |
+|        | When parameter `utxo_ref` hash is an input being spent |
+
+---

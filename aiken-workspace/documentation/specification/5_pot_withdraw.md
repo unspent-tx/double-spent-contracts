@@ -1,16 +1,22 @@
-# Specification - Spend - Pot
+# Specification - Withdraw - Pot
 
 ## Parameter
 
-- `oracle_nft`: The policy id of `OracleNFT`
+| Field        | Type     | Description                |
+| ------------ | -------- | -------------------------- |
+| `oracle_nft` | PolicyId | The policy id of OracleNFT |
 
-## User Action
+## Redeemer
 
-1. Spend - Redeemer `Withdraw`
+| Action     | Description        |
+| ---------- | ------------------ |
+| `Withdraw` | Withdraw pot funds |
 
-   - There is exactly 1 input from the `oracle_nft` policy.
-   - The oraclue datum is valid.
-     - `OracleDatum` `count`, `start_slot`, `slot_increase`, `winner`
-   - The transaction is signed by the `winner`.
-   - The transaction is valid after calculated `end_of_game` slot.
-     - `end_of_game` = `start_slot + count * slot_increase`
+## User Actions
+
+| Action   | Description                                                          |
+| -------- | -------------------------------------------------------------------- |
+| Withdraw | When redeemer is `Withdraw`                                          |
+|          | When 1 input with `oracle_nft` with `OracleDatum` is present         |
+|          | When `winner` is signing the transaction                             |
+|          | When transaction is valid after `slot_start + count * slot_increase` |
