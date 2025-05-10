@@ -18,12 +18,12 @@ validator ds_nft(oracle_nft: PolicyId) {
   mint(redeemer: MintPolarity, policy_id: PolicyId, tx: Transaction) {
     when redeemer is {
       RMint -> {
-        expect [oracle_input] = inputs_with_policy(tx.inputs, oracle_nft)       // find exactly 1 input with oracle nft 
-        expect InlineDatum(input_datum) = oracle_input.output.datum             // with inline datum of some type
-        expect OracleDatum { count, .. }: OracleDatum = input_datum             // specifically type OracleDatum with a count field
-        only_minted_token(tx.mint, policy_id, convert_int_to_bytes(count), 1)   // only one token is minted using count as asset name
+        expect [oracle_input] = inputs_with_policy(tx.inputs, oracle_nft)        // find exactly 1 input with oracle nft
+        expect InlineDatum(input_datum) = oracle_input.output.datum              // with inline datum of some type
+        expect OracleDatum { count, .. }: OracleDatum = input_datum              // specifically type OracleDatum with a count field
+        only_minted_token(tx.mint, policy_id, convert_int_to_bytes(count), 1)    // only one token is minted using count as asset name
       }
-      RBurn -> check_policy_only_burn(tx.mint, policy_id)                       // all minting values are negative 
+      RBurn -> check_policy_only_burn(tx.mint, policy_id)                        // all minting values are negative 
     }
   }
   else(_) {
@@ -58,7 +58,7 @@ test success_mint_ds() {
     mocktail_tx()
       |> tx_in(True, mock_tx_hash(0), 0, oracle_utxo_input_standard, mock_script_address(0, None))
       |> tx_in_inline_datum(True, datum_standard) 
-      |> mint(True, 1, policy_id_standard, "0")                   // asset name is same as count
+      |> mint(True, 1, policy_id_standard, "0")                                  // asset name is same as count
       |> complete()
   ds_nft.mint(mock_policy_id(0), redeemer_standard, policy_id_standard, tx)
 }
@@ -68,7 +68,7 @@ test fail_mint_ds_with_incorrect_name() {
     mocktail_tx()
       |> tx_in(True, mock_tx_hash(0), 0, oracle_utxo_input_standard, mock_script_address(0, None))
       |> tx_in_inline_datum(True,datum_standard)
-      |> mint(True, 1, policy_id_standard, "1")                   // asset name is different from count
+      |> mint(True, 1, policy_id_standard, "1")                                  // asset name is different from count
       |> complete()
   !ds_nft.mint(mock_policy_id(0), redeemer_standard, policy_id_standard, tx)
 }
@@ -80,7 +80,7 @@ test fail_mint_ds_with_multiple_mint() {
       |> tx_in(True, mock_tx_hash(0), 0, oracle_utxo_input_standard, mock_script_address(0, None))
       |> tx_in_inline_datum(True, datum_standard)
       |> mint(True, 1, policy_id_standard, "0")
-      |> mint(True, 1, policy_id_different, "0")                 // cannot have multiple mints with any policy
+      |> mint(True, 1, policy_id_different, "0")                                 // cannot have multiple mints with any policy
       |> complete()
   !ds_nft.mint(mock_policy_id(0), redeemer_standard, policy_id_standard, tx)
 }
@@ -97,7 +97,7 @@ test success_burn_ds_with_other_policy_also_burning_edge_case() {
   let tx =
     mocktail_tx()
       |> mint(True, -1, policy_id_standard, "")
-      |> mint(True, -1, mock_policy_id(1), "")                  // edge case we can burn other policies too
+      |> mint(True, -1, mock_policy_id(1), "")                                  // edge case we can burn other policies too
       |> complete()
   ds_nft.mint(mock_policy_id(0), redeemer_burn_standard, policy_id_standard, tx)
 }
@@ -113,7 +113,7 @@ test fail_burn_ds_with_mint() {
 test fail_burn_ds_with_mint_and_burn() {
   let tx =
     mocktail_tx()
-      |> mint(True, -1, policy_id_standard, "")                // cannot burn and mint at the same time
+      |> mint(True, -1, policy_id_standard, "")                                 // cannot burn and mint at the same time
       |> mint(True, 1, policy_id_standard, "1")
       |> complete()
   !ds_nft.mint(mock_policy_id(0), redeemer_burn_standard, policy_id_standard, tx)
@@ -125,6 +125,6 @@ test success_vodka_only_minted_token_test(){
 }
 
 test fail_vodka_only_minted_token_test(){
-  let mint = from_asset(policy_id_standard, "", 2)              // Try to mint 2 tokens
+  let mint = from_asset(policy_id_standard, "", 2)                              // try to mint 2 tokens
   !only_minted_token(mint, policy_id_standard, "", 1)  
 }

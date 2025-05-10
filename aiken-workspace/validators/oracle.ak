@@ -1,7 +1,7 @@
-// store and spend the state thread game logic
+// 🖲️ store and spend the state thread game logic
 
-// originally forked from the plutus-nft contract open sourced by @https://github.com/HinsonSIDAN 
-// https://github.com/MeshJS/mesh/blob/main/packages/mesh-contract/src/plutus-nft/aiken-workspace/validators/oracle.ak 
+// originally forked from the plutus-nft contract open sourced by @https://github.com/HinsonSIDAN
+// https://github.com/MeshJS/mesh/blob/main/packages/mesh-contract/src/plutus-nft/aiken-workspace/validators/oracle.ak
 
 use aiken/collection/list
 use cardano/address.{Address}
@@ -161,7 +161,7 @@ pub fn datum_with_updates(test_case: DatumTestCase) -> OracleDatum {      // reu
 }
 
 const oracle_utxo_input_standard = from_asset(mock_policy_id(0), "", 1) |> add("", "", 2_000_000)  // standard oracle utxo input
-const redeemer_standard = MintDsNFT { winner: mock_pub_key_hash(3) }                           // standard redeemer to reuse
+const redeemer_standard = MintDsNFT { winner: mock_pub_key_hash(3) }                               // standard redeemer to reuse
 const datum_standard = 
   datum_with_updates(
     DatumTestCase {                                                       // standard input datum to resuse
