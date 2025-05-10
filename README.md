@@ -20,7 +20,7 @@ Created by [@unspent-tx](https://github.com/unspent-tx)
 
 ## Validators
 
-| Name                                            | Specification                                                        | Description                                                                                                                               |
+| Name                                            |                                                                      | Description                                                                                                                               |
 | ----------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | [🖲️ Oracle NFT](../validators/oracle.ak)        | [⚙️ ](aiken-workspace/documentation/specification/1_oracle_nft.md)   | One-time minting policy creating a state thread token for game state.                                                                     |
 | [🖲️ Oracle](../validators/oracle.ak)            | [⚙️ ](aiken-workspace/documentation/specification/2_oracle.md)       | Manages game state and DS minting logic. Collection count increments, where fees get distributed to, how much things cost or unlock, etc. |
