@@ -1,4 +1,4 @@
-# Specification - Mint - OracleNFT
+# Mint - [OracleNFT 🖲️](../../validators/oracle_nft.ak)
 
 ## Parameter
 

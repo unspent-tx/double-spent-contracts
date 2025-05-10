@@ -1,4 +1,4 @@
-# Specification - Mint - DSNFT
+# Mint - [DSNFT 🫀](aiken-workspace/validators/ds_nft.ak)
 
 ## Parameter
 

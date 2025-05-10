@@ -12,27 +12,31 @@ Created by [@unspent-tx](https://github.com/unspent-tx)
 
 ## Overview
 
-| Read                                                            | Name                       | Description                                                                                                                                           |
-| --------------------------------------------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Read](aiken-workspace/documentation/user-actions.md)           | User Actions               | Overview of how multiple contracts are used together. Quickly scan complete validation logic.                                                         |
-| [Read](aiken-workspace/documentation/param-dependency-graph.md) | Parameter Dependency Graph | Visual representation of how contract parameters depend on each other across the waterfall.                                                           |
-| [Read](aiken-workspace/documentation/setup-procedure.md)        | Offchain Setup Procedure   | Step-by-step guide for initializing the offchain protocol with mesh, including contract deployment, parameter configuration, and initial state setup. |
+| Name                                                                                 | Description                                                                                                                                           |
+| ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [🎮 User Actions](aiken-workspace/documentation/user-actions.md)                     | Overview of how multiple contracts are used together. Quickly scan complete validation logic.                                                         |
+| [🕸️ Parameter Dependencies](aiken-workspace/documentation/param-dependency-graph.md) | Visual representation of how contract parameters depend on each other across the waterfall.                                                           |
+| [🔧 Offchain Setup Procedure](aiken-workspace/documentation/setup-procedure.md)      | Step-by-step guide for initializing the offchain protocol with mesh, including contract deployment, parameter configuration, and initial state setup. |
 
-## Contracts
+## Validators
 
-| Docs                                                                 | Contract     | Description                                                                                                                                                   |
-| -------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Doc](aiken-workspace/documentation/specification/1_oracle_nft.md)   | Oracle NFT   | One-time minting policy creating a state thread token for game state.                                                                                         |
-| [Doc](aiken-workspace/documentation/specification/2_oracle.md)       | Oracle       | Core validator that manages game state and DS minting logic. Collection count increments, where fees get distributed to, how much things cost or unlock, etc. |
-| [Doc](aiken-workspace/documentation/specification/3_ds_nft.md)       | DS NFT       | Minting policy for numbered NFTs using collection count as asset name.                                                                                        |
-| [Doc](aiken-workspace/documentation/specification/4_pot_spend.md)    | Pot Spend    | Locks utxos for winner and defers spend logic to Pot Withdraw.                                                                                                |
-| [Doc](aiken-workspace/documentation/specification/5_pot_withdraw.md) | Pot Withdraw | Zero-withdrawal trick enforcing winner payout rules based on Oracle state and time-based calculations.                                                        |
-| [Doc](aiken-workspace/documentation/specification/6_treasury.md)     | Treasury     | Locks utxos for DS burns and manages spending based on Oracle state.                                                                                          |
-| [Doc](aiken-workspace/documentation/specification/7_marketplace.md)  | Marketplace  | Facilitates NFT trading with automated fee distribution and secure asset transfers between buyers and sellers.                                                |
+| Name                                            | Specification                                                        | Description                                                                                                                               |
+| ----------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| [🖲️ Oracle NFT](../validators/oracle.ak)        | [⚙️ ](aiken-workspace/documentation/specification/1_oracle_nft.md)   | One-time minting policy creating a state thread token for game state.                                                                     |
+| [🖲️ Oracle](../validators/oracle.ak)            | [⚙️ ](aiken-workspace/documentation/specification/2_oracle.md)       | Manages game state and DS minting logic. Collection count increments, where fees get distributed to, how much things cost or unlock, etc. |
+| [🫀 DS NFT](../validators/ds_nft.ak)            | [⚙️ ](aiken-workspace/documentation/specification/3_ds_nft.md)       | Minting policy for numbered NFTs using collection count as asset name.                                                                    |
+| [🪺 Pot Spend](../validators/pot_spend.ak)       | [⚙️ ](aiken-workspace/documentation/specification/4_pot_spend.md)    | Locks utxos for winner after timer.                                                                                                       |
+| [🪺 Pot Withdraw](../validators/pot_withdraw.ak) | [⚙️ ](aiken-workspace/documentation/specification/5_pot_withdraw.md) | Enforces winner payout rules.                                                                                                             |
+| [💰 Treasury](../validators/treasury.ak)        | [⚙️ ](aiken-workspace/documentation/specification/6_treasury.md)     | Locks utxos for DS burns.                                                                                                                 |
+| [🔀 Marketplace](../validators/marketplace.ak)  | [⚙️ ](aiken-workspace/documentation/specification/7_marketplace.md)  | Facilitates peer-to-peer DS trading.                                                                                                      |
+
+<!-- 🪺 🪤 🫀 🔀 -->
 
 ## Run Tests
 
 ```bash
+cd aiken-workspace
+
 aiken check -m mint
 aiken check -m burn
 aiken check -m spend

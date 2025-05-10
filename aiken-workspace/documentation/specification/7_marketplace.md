@@ -1,4 +1,4 @@
-# Specification - Spend - Marketplace
+# Spend - [Marketplace 🔀](../../validators/marketplace.ak)
 
 ## Parameter
 

@@ -1,4 +1,4 @@
-# Specification - Spend - Pot
+# Spend - [Pot Spend 🪺](../../validators/pot_spend.ak)
 
 ## Parameter
 

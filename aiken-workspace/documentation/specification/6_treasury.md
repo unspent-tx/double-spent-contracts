@@ -1,4 +1,4 @@
-# Specification - Spend - Treasury
+# Spend - [Treasury 💰](../../validators/treasury.ak)
 
 ## Parameter
 

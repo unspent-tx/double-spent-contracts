@@ -1,4 +1,4 @@
-# Specification - Withdraw - Pot
+# Withdraw - [Pot Withdraw 🪺](../../validators/pot_withdraw.ak)
 
 ## Parameter
 

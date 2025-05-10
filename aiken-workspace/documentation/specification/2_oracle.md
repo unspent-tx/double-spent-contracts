@@ -1,4 +1,4 @@
-# Specification - Spend - Oracle
+# Spend - [Oracle 🖲️](../../validators/oracle.ak)
 
 ## Datum
 
@@ -28,9 +28,9 @@
 | ------ | -------------------------------------------------------------- |
 | Spend  | When own input with `oracle_nft` with `OracleDatum` is present |
 |        | When redeemer is `MintDsNFT{winner}`                           |
-|        | When 1 input with `oracle_nft` is spent                        |
+|        | When 1 input with `oracle_nft` is present                      |
 |        | When 1 output with `oracle_nft` is sent to own address         |
-|        | When output `oracle_nft` has only value of 1 nft and lovelace  |
+|        | When output `oracle_nft` has only 1 nft and lovelace           |
 |        | When output datum `count` is updated with `count + 1`          |
 |        | When output datum `winner` is updated with redeemer's `winner` |
 |        | When all other output datum remains the same                   |
