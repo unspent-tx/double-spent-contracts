@@ -1,4 +1,4 @@
-// mint and burn ds_nft
+// 🫀 mint and burn ds_nft 
 
 // originally forked from the plutus-nft contract by @https://github.com/HinsonSIDAN Apache 2.0 license
 // https://github.com/MeshJS/mesh/blob/main/packages/mesh-contract/src/plutus-nft/aiken-workspace/validators/plutus_nft.ak

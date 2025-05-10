@@ -1,4 +1,4 @@
-// be the winner and wait for timer to expire to withdraw the pot utxos
+// 🪺 be the winner and wait for timer to expire to withdraw the pot utxos
 
 use aiken_design_patterns/stake_validator
 use cardano/address.{Credential, Script}

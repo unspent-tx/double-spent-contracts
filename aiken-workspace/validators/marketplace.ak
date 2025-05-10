@@ -1,4 +1,4 @@
-// Trade NFTs peer to peer
+// 🔀 Trade NFTs peer to peer
 
 // Originally forked from the marketplace contract written by @https://github.com/HinsonSIDAN Apache 2.0 license
 // https://github.com/MeshJS/mesh/blob/main/packages/mesh-contract/src/marketplace/aiken-workspace-v2/validators/marketplace.ak

@@ -1,4 +1,4 @@
-// one time minting policy to initiate state thread
+// 🖲️ one time minting policy to initiate state thread
 
 // originally forked from the plutus-nft contract written by @https://github.com/HinsonSIDAN Apache 2.0 license
 // https://github.com/MeshJS/mesh/blob/main/packages/mesh-contract/src/plutus-nft/aiken-workspace/validators/oracle_nft.ak

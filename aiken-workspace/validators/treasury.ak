@@ -1,4 +1,4 @@
-// burn a ds_nft to unlock utxos length of divisor
+// 💰 burn a ds_nft to unlock utxos length of divisor
 
 use aiken/builtin.{divide_integer, less_than_integer}
 use aiken/collection/list

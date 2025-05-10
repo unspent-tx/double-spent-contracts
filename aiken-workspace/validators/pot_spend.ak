@@ -1,4 +1,4 @@
-// store utxos for winner - spend logic offloaded to pot_withdraw validator
+// 🪺 store utxos for winner - spend logic offloaded to pot_withdraw validator
 
 use aiken/crypto.{ScriptHash}
 use aiken_design_patterns/stake_validator
