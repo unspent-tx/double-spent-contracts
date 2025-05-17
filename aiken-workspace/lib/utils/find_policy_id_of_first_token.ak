@@ -8,6 +8,7 @@ use cardano/transaction.{Input}
 /// expect policy_id = extract_first_policy_id(input)
 /// ```
 pub fn find_policy_id_of_first_token(input: Input) -> PolicyId {
-  expect [(policy_id, _, _)] = list.filter(flatten(input.output.value), fn(x) { x.1st != "" })
+  expect [(policy_id, _, _)] =
+    list.filter(flatten(input.output.value), fn(x) { x.1st != "" })
   policy_id
 }

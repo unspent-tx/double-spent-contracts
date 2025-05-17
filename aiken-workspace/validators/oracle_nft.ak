@@ -4,28 +4,34 @@
 // https://github.com/MeshJS/mesh/blob/main/packages/mesh-contract/src/plutus-nft/aiken-workspace/validators/oracle_nft.ak
 
 use aiken/collection/list
-use cardano/assets.{from_lovelace, PolicyId}
-use cardano/transaction.{Input, OutputReference, placeholder, Transaction}
-use mocktail.{complete, mint, mock_policy_id, mock_pub_key_address, mock_tx_hash, mock_utxo_ref, mocktail_tx, tx_in}
+use cardano/assets.{PolicyId, from_lovelace}
+use cardano/transaction.{Input, OutputReference, Transaction, placeholder}
+use mocktail.{
+  complete, mint, mock_policy_id, mock_pub_key_address, mock_tx_hash,
+  mock_utxo_ref, mocktail_tx, tx_in,
+}
 
 pub type MintPolarity {
   RMint
 }
 
-validator oracle_nft(utxo_ref: OutputReference) { 
+validator oracle_nft(utxo_ref: OutputReference) {
   mint(redeemer: MintPolarity, _policy_id: PolicyId, tx: Transaction) {
     let RMint = redeemer
-    let hash_equal =                                                        // find the hash of the param utxo
+    let hash_equal =
+      // find the hash of the param utxo
       fn(input: Input) {
         let hash = input.output_reference
         utxo_ref == hash
       }
-    let target_input_exist = list.find(tx.inputs, hash_equal)               // check if we spend it
+    let target_input_exist = list.find(tx.inputs, hash_equal)
+    // check if we spend it
     when target_input_exist is {
       Some(_) -> True
       None -> False
     }
   }
+
   else(_) {
     fail
   }
@@ -58,4 +64,3 @@ test fail_mint_oracle_no_utxo_ref_supply() {
 
   !oracle_nft.mint(mock_utxo_ref(0, 0), redeemer, policy_id, placeholder)
 }
-

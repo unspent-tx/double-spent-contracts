@@ -5,9 +5,17 @@
 
 use cardano/address.{Address}
 use cardano/assets.{add, from_lovelace, lovelace_of}
-use cardano/transaction.{find_input, InlineDatum, Input, OutputReference, Transaction}
-use cocktail.{address_pub_key, get_all_value_to, inputs_at, key_signed, value_geq}
-use mocktail.{add_input, complete, mock_policy_id, mock_pub_key_address, mock_pub_key_hash, mock_script_address, mock_script_output, mock_tx_hash, mock_utxo_ref, mocktail_tx, required_signer_hash, tx_in, tx_in_inline_datum, tx_out}
+use cardano/transaction.{
+  InlineDatum, Input, OutputReference, Transaction, find_input,
+}
+use cocktail.{
+  address_pub_key, get_all_value_to, inputs_at, key_signed, value_geq,
+}
+use mocktail.{
+  add_input, complete, mock_policy_id, mock_pub_key_address, mock_pub_key_hash,
+  mock_script_address, mock_script_output, mock_tx_hash, mock_utxo_ref,
+  mocktail_tx, required_signer_hash, tx_in, tx_in_inline_datum, tx_out,
+}
 
 pub type MarketplaceDatum {
   MarketplaceDatum {
@@ -33,7 +41,7 @@ validator marketplace(owner: Address, fee_percentage_basis_point: Int) {
     expect Some(datum) = datum_opt
     when redeemer is {
       Buy -> {
-        expect Some(own_input) = find_input(tx.inputs, input)  
+        expect Some(own_input) = find_input(tx.inputs, input)
         let own_address = own_input.output.address
         let is_only_one_input_from_own_address =
           when inputs_at(tx.inputs, own_address) is {
@@ -43,7 +51,7 @@ validator marketplace(owner: Address, fee_percentage_basis_point: Int) {
         let is_proceed_paid =
           get_all_value_to(tx.outputs, datum.seller)
             |> value_geq(
-                from_lovelace(datum.price + lovelace_of(own_input.output.value)), 
+                from_lovelace(datum.price + lovelace_of(own_input.output.value)),
               )
         let is_fee_paid =
           get_all_value_to(tx.outputs, owner)
@@ -58,11 +66,11 @@ validator marketplace(owner: Address, fee_percentage_basis_point: Int) {
       }
     }
   }
+
   else(_) {
     fail
   }
 }
-
 
 type CloseTestCase {
   is_seller_signed: Bool,
