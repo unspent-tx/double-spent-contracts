@@ -2,9 +2,9 @@
 
 <img src="https://www.unspenttx.com/logo.png" alt="Double Spent Logo" width="200"/>
 
-## A less than zero-sum game chasing 49% of infinity.
+## Chasing 49% of infinity.
 
-Participation is encouraged both early and late in lifecycle. The first % to mint can burn for profit ADA, while the last to mint is enticed with a growing pot of ADA.
+Participation is encouraged both early and late in lifecycle. The first % to mint can burn for profit ADA, while the last to mint is enticed with a growing pot of ADA locked behind a timer.
 
 Using a series of Aiken smart contracts for managing treasury, marketplace, oracle, NFT minting and burning operations on the Cardano blockchain, this protocol is simple, automatic, deterministic, transparent, and censorship resistant.
 
