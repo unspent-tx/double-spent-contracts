@@ -24,18 +24,18 @@ validator ds_nft(oracle_nft: PolicyId) {
   mint(redeemer: MintPolarity, policy_id: PolicyId, tx: Transaction) {
     when redeemer is {
       RMint -> {
-        expect [oracle_input] = inputs_with_policy(tx.inputs, oracle_nft)
         // find exactly 1 input with oracle nft
-        expect InlineDatum(input_datum) = oracle_input.output.datum
+        expect [oracle_input] = inputs_with_policy(tx.inputs, oracle_nft)
         // with inline datum of some type
-        expect OracleDatum { count, .. }: OracleDatum = input_datum
+        expect InlineDatum(input_datum) = oracle_input.output.datum
         // specifically type OracleDatum with a count field
+        expect OracleDatum { count, .. }: OracleDatum = input_datum
+      // only one token is minted using count as asset name
         only_minted_token(tx.mint, policy_id, convert_int_to_bytes(count), 1)
       }
-      // only one token is minted using count as asset name
+    // all minting values are negative 
       RBurn -> check_policy_only_burn(tx.mint, policy_id)
     }
-    // all minting values are negative 
   }
 
   else(_) {

@@ -18,14 +18,14 @@ pub type MintPolarity {
 validator oracle_nft(utxo_ref: OutputReference) {
   mint(redeemer: MintPolarity, _policy_id: PolicyId, tx: Transaction) {
     let RMint = redeemer
-    let hash_equal =
       // find the hash of the param utxo
+    let hash_equal =
       fn(input: Input) {
         let hash = input.output_reference
         utxo_ref == hash
       }
-    let target_input_exist = list.find(tx.inputs, hash_equal)
     // check if we spend it
+    let target_input_exist = list.find(tx.inputs, hash_equal)
     when target_input_exist is {
       Some(_) -> True
       None -> False

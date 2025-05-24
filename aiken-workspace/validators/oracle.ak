@@ -20,26 +20,27 @@ use mocktail.{
 use utils/find_policy_id_of_first_token.{find_policy_id_of_first_token}
 
 pub type OracleDatum {
-  count: Int,
   // collection count, gets incremented each mint
-  treasury_address: Address,
+  count: Int,
   // treasury address
-  pot_address: Address,
+  treasury_address: Address,
   // pot address
-  fee_address: Address,
+  pot_address: Address,
   // developer's wallet
-  winner: ByteArray,
+  fee_address: Address,
   // pub key hash of last nft purchaser, the wallet who can claim the prize pool
-  treasury_price: Int,
+  winner: ByteArray,
   // lovelace to lock in treasury upon mint
-  pot_price: Int,
+  treasury_price: Int,
   // lovelace to lock in the pot upon mint
-  fee_price: Int,
+  pot_price: Int,
   // lovelace that leaves the protocol upon mint and pays devs
-  slot_start: Int,
+  fee_price: Int,
   // timer: slot of oracle deployment ( includes arbitrary offset like + 6 months  )
-  slot_increase: Int,
+  slot_start: Int,
   // timer: slot increase for each new mint
+  slot_increase: Int,
+  // divisor for the burn threshold and the unlockable value
   divisor: Int,
 }
 
@@ -61,12 +62,13 @@ validator oracle {
     input: OutputReference,
     tx: Transaction,
   ) {
-    expect Some(own_input) = find_input(tx.inputs, input)
     // find the input being spent
-    let oracle_nft_policy = find_policy_id_of_first_token(own_input)
+    expect Some(own_input) = find_input(tx.inputs, input)
     // custom helper function to find the oracle nft policy ID from its own input
-    let own_address = own_input.output.address
+    let oracle_nft_policy = find_policy_id_of_first_token(own_input)
     // find the address of the input being spent
+    let own_address = own_input.output.address
+    // destructure input datum
     expect Some(OracleDatum {
       count,
       treasury_address,
@@ -80,7 +82,6 @@ validator oracle {
       slot_increase,
       divisor,
     }) = datum_opt
-    // destructure input datum
     when
       (
         redeemer,
@@ -89,28 +90,27 @@ validator oracle {
       )
     is {
       (
-        MintDsNFT { winner: new_winner },
         // when the redeemer includes a new_winenr
-        [_],
+        MintDsNFT { winner: new_winner },
         // when 1 input with oracle nft is present
+        [_],
+        // when 1 output with oracle nft is present
         [only_output],
       ) -> {
-        // when 1 output with oracle nft is present
-        let is_output_value_clean = list.length(flatten(only_output.value)) == 2
         // oracle utxo output is comprised of only 1 NFT and it's lovelace
-        let is_datum_updated =
+        let is_output_value_clean = list.length(flatten(only_output.value)) == 2
           // compare output datum with input datum
+        let is_datum_updated =
           only_output.datum == InlineDatum(
             OracleDatum {
-              count: count + 1,
               // update count by 1
+              count: count + 1,
               treasury_address,
               pot_address,
               fee_address,
-              winner: new_winner,
               // update winner to new_winner
+              winner: new_winner,
               treasury_price,
-              // the rest of the fields are checked to make sure they are not updated
               pot_price,
               fee_price,
               slot_start,
@@ -118,21 +118,21 @@ validator oracle {
               divisor,
             },
           )
+        // pay treasury
         let is_treasury_paid =
           get_all_value_to(tx.outputs, treasury_address)
             |> value_geq(from_lovelace(treasury_price))
-        // pay treasury
+        // pay pot
         let is_pot_paid =
           get_all_value_to(tx.outputs, pot_address)
             |> value_geq(from_lovelace(pot_price))
-        // pay pot
+        // pay fee
         let is_fee_paid =
           get_all_value_to(tx.outputs, fee_address)
             |> value_geq(from_lovelace(fee_price))
-        // pay fee
+      // final validation
         is_output_value_clean? && is_datum_updated? && is_treasury_paid? && is_pot_paid? && is_fee_paid?
       }
-      // final validation
       _ -> False
     }
   }

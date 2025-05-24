@@ -34,31 +34,31 @@ validator treasury(oracle_nft: PolicyId, nft_policy: PolicyId) {
       )
     is {
       (
-        Withdraw { asset_name },
         // when redeemer has asset name
-        [oracle_input_ref],
+        Withdraw { asset_name },
         // when 1 input reference with oracle nft is present
+        [oracle_input_ref],
+        // when we are spending our own input
         Some(own_input),
       ) ->
-        // when we are spending our own input
         when (oracle_input_ref.output.datum, from_utf8(asset_name)) is {
           (
-            InlineDatum(oracle_datum),
             // when oracle utxo has some inline datum
+            InlineDatum(oracle_datum),
+            // when the redeemer's asset name converts to an integer from utf8
             Some(asset_name_int),
           ) -> {
-            // when the redeemer's asset name converts to an integer from utf8
-            expect OracleDatum { count, divisor, .. } = oracle_datum
             // oracle datum is valid
+            expect OracleDatum { count, divisor, .. } = oracle_datum
+            // use asset_name to check for burn
             let is_burned =
               only_minted_token(tx.mint, nft_policy, asset_name, -1)
-            // use asset_name to check for burn
+            // use asset_name_int to check if less than count divided by divisor
             let under_threshold =
               less_than_integer(asset_name_int, divide_integer(count, divisor))
-            // use asset_name_int to check if less than count divided by divisor
+            // use divisor to check amount of inputs being spent
             let is_correct_input_count =
               list.length(inputs_at(tx.inputs, own_input.output.address)) == divisor
-            // use divisor to check amount of inputs being spent
             is_burned? && under_threshold? && is_correct_input_count?
           }
           _ -> {

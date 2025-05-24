@@ -23,14 +23,15 @@ validator pot_withdraw(oracle_nft: PolicyId) {
         // withdraw logic
         when (r, inputs_with_policy(tx.reference_inputs, oracle_nft)) is {
           (
-            Withdraw,
             // when redeemer is withdraw
+            Withdraw,
+            // when 1 oracle input ref is present
             [oracle_input_ref],
           ) ->
-            // when 1 oracle input ref is present
             when oracle_input_ref.output.datum is {
-              InlineDatum(oracle_datum) -> {
                 // some datum is present
+              InlineDatum(oracle_datum) -> {
+                // oracle datum is valid
                 expect OracleDatum {
                   count,
                   slot_start,
@@ -38,7 +39,6 @@ validator pot_withdraw(oracle_nft: PolicyId) {
                   winner,
                   ..
                 } = oracle_datum
-                // oracle datum is valid
                 let is_winner = key_signed(tx.extra_signatories, winner)
                 let is_timer_expired =
                   valid_after(
