@@ -12,11 +12,10 @@ Created by [@unspent-tx](https://github.com/unspent-tx)
 
 ## Overview
 
-| Name                                                                                 | Description                                                                                                                                           |
-| ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [🎮 User Actions](aiken-workspace/documentation/user-actions.md)                     | Overview of how multiple contracts are used together. Quickly scan complete validation logic.                                                         |
-| [🕸️ Parameter Dependencies](aiken-workspace/documentation/param-dependency-graph.md) | Visual representation of how contract parameters depend on each other across the waterfall.                                                           |
-| [🔧 Offchain Setup Procedure](aiken-workspace/documentation/setup-procedure.md)      | Step-by-step guide for initializing the offchain protocol with mesh, including contract deployment, parameter configuration, and initial state setup. |
+| Name                                                                                 | Description                                                                                   |
+| ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
+| [🎮 User Actions](aiken-workspace/documentation/user-actions.md)                     | Overview of how multiple contracts are used together. Quickly scan complete validation logic. |
+| [🕸️ Parameter Dependencies](aiken-workspace/documentation/param-dependency-graph.md) | Visual representation of how contract parameters depend on each other across the waterfall.   |
 
 ## Validators
 
