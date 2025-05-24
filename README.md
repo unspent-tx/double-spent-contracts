@@ -60,4 +60,4 @@ aiken check -m marketplace
 
 ## License
 
-This project is licensed under the AGPL-3.0 License - see the [LICENSE.txt](aiken-workspace/LICENSE.txt) file for details.
+This project is licensed under the AGPL-3.0 License - see the [LICENSE.txt](LICENSE.txt) file for details.
